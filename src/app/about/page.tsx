@@ -256,7 +256,7 @@ export default function About() {
                                             <Flex
                                                 fillWidth paddingTop="m" paddingLeft="40"
                                                 wrap>
-                                                {experience.images.map((image, index) => (
+                                                {experience.images.map((image: { width: number; height: number; alt: string; src: string }, index) => (
                                                     <Flex
                                                         key={index}
                                                         border="neutral-medium"
