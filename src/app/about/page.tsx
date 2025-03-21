@@ -321,43 +321,19 @@ export default function About() {
                                 {about.technical.title}
                             </Heading>
                             <Flex
-                                direction="column"
-                                fillWidth gap="l">
+                                direction="row"
+                                wrap
+                                >
                                 {about.technical.skills.map((skill, index) => (
                                     <Flex
                                         key={`${skill}-${index}`}
-                                        fillWidth gap="4"
+                                        marginLeft='8'
+                                        marginBottom='8'
                                         direction="column">
                                         <Text
                                             variant="heading-strong-l">
                                             {skill.title}
                                         </Text>
-                                        <Text
-                                            variant="body-default-m"
-                                            onBackground="neutral-weak">
-                                            {skill.description}
-                                        </Text>
-                                        {skill.images && skill.images.length > 0 && (
-                                            <Flex
-                                                fillWidth paddingTop="m" gap="12"
-                                                wrap>
-                                                {skill.images.map((image, index) => (
-                                                    <Flex
-                                                        key={index}
-                                                        border="neutral-medium"
-                                                        
-                                                        radius="m"
-                                                        minWidth={image.width} height={image.height}>
-                                                        <SmartImage
-                                                            enlarge
-                                                            radius="m"
-                                                            sizes={image.width.toString()}
-                                                            alt={image.alt}
-                                                            src={image.src}/>
-                                                    </Flex>
-                                                ))}
-                                            </Flex>
-                                        )}
                                     </Flex>
                                 ))}
                             </Flex>

@@ -2,7 +2,7 @@ import { Column, Flex, Heading } from '@/once-ui/components';
 import { Mailchimp } from '@/components';
 import { Posts } from '@/components/blog/Posts';
 import { baseURL } from '@/app/resources'
-import { blog, person, newsletter } from '@/app/resources/content';
+import { blog, person } from '@/app/resources/content';
 
 export async function generateMetadata() {
 
@@ -70,9 +70,6 @@ export default function Blog() {
 				<Posts range={[1,3]} thumbnail/>
 				<Posts range={[4]} columns="2"/>
 			</Column>
-				{newsletter.display && (
-						<Mailchimp newsletter={newsletter} />
-				)}
 			</Column>
     );
 }

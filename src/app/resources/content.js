@@ -1,21 +1,15 @@
 import { InlineCode } from "@/once-ui/components";
 
 const person = {
-    firstName: 'Selene',
-    lastName:  'Yu',
+    firstName: 'Muhammad Fahad',
+    lastName:  'Murtaza',
     get name() {
         return `${this.firstName} ${this.lastName}`;
     },
-    role:      'Design Engineer',
+    role:      'Full Stack Developer',
     avatar:    '/images/avatar.jpg',
-    location:  'Asia/Jakarta',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-    languages: ['English', 'Bahasa']  // optional: Leave the array empty if you don't want to display languages
-}
-
-const newsletter = {
-    display: true,
-    title: <>Subscribe to {person.firstName}'s Newsletter</>,
-    description: <>I occasionally write about design, technology, and share thoughts on the intersection of creativity and engineering.</>
+    location:  'Asia/Pakistan',
+    languages: ['English', 'Urdu']
 }
 
 const social = [
@@ -24,12 +18,12 @@ const social = [
     {
         name: 'GitHub',
         icon: 'github',
-        link: 'https://github.com/once-ui-system/nextjs-starter',
+        link: 'https://github.com/xerop79int',
     },
     {
         name: 'LinkedIn',
         icon: 'linkedin',
-        link: 'https://www.linkedin.com/company/once-ui/',
+        link: 'https://www.linkedin.com/in/muhammad-fahad-murtaza-8533b421a/',
     },
     {
         name: 'X',
@@ -39,7 +33,7 @@ const social = [
     {
         name: 'Email',
         icon: 'email',
-        link: 'mailto:example@gmail.com',
+        link: 'mailto:fahadmurtaza021@gmail.com',
     },
 ]
 
@@ -47,8 +41,8 @@ const home = {
     label: 'Home',
     title: `${person.name}'s Portfolio`,
     description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Design engineer and builder</>,
-    subline: <>I'm Selene, a design engineer at <InlineCode>FLY</InlineCode>, where I craft intuitive<br/> user experiences. After hours, I build my own projects.</>
+    headline: <>Full Stack Developer</>,
+    subline: <>I'm Fahad, a full stack developer at <InlineCode>Zigron</InlineCode>, where I craft intuitive<br/> user experiences. After hours, I build my own projects.</>
 }
 
 const about = {
@@ -64,41 +58,83 @@ const about = {
     },
     calendar: {
         display: true,
-        link: 'https://cal.com'
+        link: 'https://cal.com/fahad-murtaza-153ba2/30min'
     },
     intro: {
         display: true,
         title: 'Introduction',
-        description: <>Selene is a Jakarta-based design engineer with a passion for transforming complex challenges into simple, elegant design solutions. Her work spans digital interfaces, interactive experiences, and the convergence of design and technology.</>
+        description: <>Experienced Software Developer adept in bringing forth expertise in design, installation, testing and
+        maintenance of software systems. Equipped with a diverse and promising skill-set. Proficient in various
+        platforms, languages, and embedded systems. Experienced with the latest cutting edge development
+        tools and procedures. Able to effectively self-manage during independent projects, as well as
+        collaborate as part of a productive team</>
     },
     work: {
         display: true, // set to false to hide this section
         title: 'Work Experience',
         experiences: [
             {
-                company: 'FLY',
-                timeframe: '2022 - Present',
-                role: 'Senior Design Engineer',
+                company: 'Zigron',
+                timeframe: 'Jan 2024 - Present',
+                role: 'Full Stack Developer (Previously Backend Developer)',
                 achievements: [
-                    <>Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user engagement and 30% faster load times.</>,
-                    <>Spearheaded the integration of AI tools into design workflows, enabling designers to iterate 50% faster.</>
+                    <>Developed a RESTful API that allowed the app to integrate with backend services, resulting in
+                    enhanced user experience</>,
+                    <>Developed a RESTful API to enable communication between the website and the backend services
+                    Implemented a REST API using Node.js that allowed for efficient data exchange between the web
+                    application and the backend database.</>,
+                    <>
+                    Developed a secure authentication system that met industry standards for data protection and
+                    privacy
+                    </>,
+                    <>
+                    Developed a real-time AI Chat/Agent feature for the application using WebSockets
+                    </>
                 ],
-                images: [ // optional: leave the array empty if you don't want to display images
-                    {
-                        src: '/images/projects/project-01/cover-01.jpg',
-                        alt: 'Once UI Project',
-                        width: 16,
-                        height: 9
-                    }
-                ]
+                images: []
             },
             {
-                company: 'Creativ3',
-                timeframe: '2018 - 2022',
-                role: 'Lead Designer',
+                company: 'Triomatic Solutions',
+                timeframe: 'Oct 2022 - Nov 2023',
+                role: 'Full Stack Developer',
                 achievements: [
                     <>Developed a design system that unified the brand across multiple platforms, improving design consistency by 40%.</>,
                     <>Led a cross-functional team to launch a new product line, contributing to a 15% increase in overall company revenue.</>
+                ],
+                images: [ ]
+            },
+            {
+                company: 'AirOverflow',
+                timeframe: 'April 2022 - Sep 2023',
+                role: 'Full Stack Developer',
+                achievements: [
+                    <> Implemented a microservices architecture that improved system modularity and reduced dependencies between components</>,
+                    <> Refactored legacy code to improve reliability, scalability and maintainability</>,
+                    <>
+                    Developed and maintained a CTF platform for the company which was used by the company to host CTF events for the PCC 2022. 
+                    </>
+                ],
+                images: [ ]
+            },
+            {
+                company: 'OctalSol',
+                timeframe: 'Oct 2020 - Feb 2022',
+                role: 'Full Stack Developer (Promoted From Frontend Developer)',
+                achievements: [
+                    <>
+                     Implemented performance improvements in both frontend and backend systems, resulting in faster load times and improved 
+                     application efficiency.
+                    </>,
+                    <> 
+                    Implemented a microservices architecture that improved system modularity and reduced dependencies between components
+                    </>,
+                    <>
+                    Identified and resolved complex technical issues, ensuring smooth system operations and minimizing downtime.
+                    </>,
+                    <>
+                     Led multiple projects from conception to deployment, coordinating with cross-functional teams to deliver high-quality solutions on 
+                     time.
+                    </>
                 ],
                 images: [ ]
             }
@@ -109,12 +145,12 @@ const about = {
         title: 'Studies',
         institutions: [
             {
-                name: 'University of Jakarta',
-                description: <>Studied software engineering.</>,
+                name: 'Air University',
+                description: <>Bachelor in Cyber Security</>,
             },
             {
                 name: 'Build the Future',
-                description: <>Studied online marketing and personal branding.</>,
+                description: <>Studied online for AI, Frontend and Backend Development, and Web3 Development, and DevOps.</>,
             }
         ]
     },
@@ -123,36 +159,37 @@ const about = {
         title: 'Technical skills',
         skills: [
             {
-                title: 'Figma',
-                description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
-                // optional: leave the array empty if you don't want to display images
-                images: [
-                    {
-                        src: '/images/projects/project-01/cover-02.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                    {
-                        src: '/images/projects/project-01/cover-03.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
+                title: 'Next.js,',
             },
             {
-                title: 'Next.js',
-                description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-                // optional: leave the array empty if you don't want to display images
-                images: [
-                    {
-                        src: '/images/projects/project-01/cover-04.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
+                title: 'Python,',
+            },
+            {
+                title: 'Django,',
+            },
+            {
+                title: 'Node.js,',
+            },
+            {
+                title: 'TypeScript,',
+            },
+            {
+                title: 'Git,',
+            },
+            {
+                title: 'Docker,',
+            },
+            {
+                title: 'Kubernetes,',
+            },
+            {
+                title: 'AWS,',
+            },
+            {
+                title: 'MySQL/NOSQL,',
+            },
+            {
+                title: 'PostgreSQL',
             }
         ]
     }
@@ -160,10 +197,8 @@ const about = {
 
 const blog = {
     label: 'Blog',
-    title: 'Writing about design and tech...',
+    title: '',
     description: `Read what ${person.name} has been up to recently`
-    // Create new blog posts by adding a new .mdx file to app/blog/posts
-    // All posts will be listed on the /blog route
 }
 
 const work = {
@@ -253,4 +288,4 @@ const gallery = {
     ]
 }
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export { person, social, home, about, blog, work };
