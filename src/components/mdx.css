@@ -1,0 +1,57 @@
+/* app/styles/mdx.css */
+
+.mdx-content {
+    width: 100%;
+  }
+  
+  .mdx-content pre {
+    overflow: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+    background-color: #2d3748;
+    border: 1px solid #e9ecef;
+  }
+  
+  .dark .mdx-content pre {
+    background-color: #1e1e1e;
+    border-color: #fff;
+  }
+  
+  .mdx-content code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9em;
+  }
+  
+  .mdx-content pre code {
+    color: #fff;
+    line-height: 1.5;
+  }
+  
+  .dark .mdx-content pre code {
+    color: #e0e0e0;
+  }
+  
+  /* For inline code */
+  .mdx-content p > code,
+  .mdx-content li > code,
+  .mdx-content h1 > code,
+  .mdx-content h2 > code,
+  .mdx-content h3 > code,
+  .mdx-content h4 > code {
+    background-color: #2d3748;
+    color: #e53e3e;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+  }
+  
+  .dark .mdx-content p > code,
+  .dark .mdx-content li > code,
+  .dark .mdx-content h1 > code,
+  .dark .mdx-content h2 > code,
+  .dark .mdx-content h3 > code,
+  .dark .mdx-content h4 > code {
+    background-color: #2d3748;
+    color: #fc8181;
+  }

@@ -15,14 +15,15 @@ type Metadata = {
     summary: string;
     image?: string;
     images: string[];
-    tag?: string;
+    tag?: string | string[];  // Fix: Allow tag to be a string or array
     team: Team[];
     link?: string;
 };
 
 function getMDXFiles(dir: string) {
     if (!fs.existsSync(dir)) {
-        throw new Error(`Directory not found: ${dir}`);
+        console.warn(`Directory not found: ${dir}`);
+        return [];
     }
 
     return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx');
@@ -33,38 +34,73 @@ function readMDXFile(filePath: string) {
         throw new Error(`File not found: ${filePath}`);
     }
 
+    // Read the file content
     const rawContent = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(rawContent);
+    
+    // Use gray-matter to parse the frontmatter, preserving the content
+    const { data, content } = matter(rawContent, {
+        engines: {
+            yaml: {
+                parse: (str) => require('js-yaml').load(str)
+            }
+        }
+    });
 
+    // Preserve code blocks by ensuring they're not processed as YAML
+    // The content is preserved as-is and will be rendered by MDXRemote
+    
+    // Normalize metadata
     const metadata: Metadata = {
         title: data.title || '',
-        publishedAt: data.publishedAt,
+        publishedAt: data.publishedAt || new Date().toISOString(),
         summary: data.summary || '',
-        image: data.image || '',
-        images: data.images || [],
-        tag: data.tag || [],
-        team: data.team || [],
-        link: data.link || '',
+        image: data.image || undefined,
+        images: Array.isArray(data.images) ? data.images : [],
+        tag: data.tag || undefined,
+        team: Array.isArray(data.team) ? data.team : [],
+        link: data.link || undefined,
     };
 
     return { metadata, content };
 }
 
 function getMDXData(dir: string) {
-    const mdxFiles = getMDXFiles(dir);
-    return mdxFiles.map((file) => {
-        const { metadata, content } = readMDXFile(path.join(dir, file));
-        const slug = path.basename(file, path.extname(file));
+    try {
+        const mdxFiles = getMDXFiles(dir);
+        return mdxFiles.map((file) => {
+            try {
+                const { metadata, content } = readMDXFile(path.join(dir, file));
+                const slug = path.basename(file, path.extname(file));
 
-        return {
-            metadata,
-            slug,
-            content,
-        };
-    });
+                return {
+                    metadata,
+                    slug,
+                    content, // Preserving the raw content with code blocks
+                };
+            } catch (error) {
+                console.error(`Error processing file ${file}:`, error);
+                return {
+                    metadata: {
+                        title: 'Error loading content',
+                        publishedAt: new Date().toISOString(),
+                        summary: 'There was an error loading this content.',
+                        images: [],
+                        team: [],
+                    } as Metadata,
+                    slug: path.basename(file, path.extname(file)),
+                    content: '',
+                };
+            }
+        });
+    } catch (error) {
+        console.error('Error getting MDX data:', error);
+        return [];
+    }
 }
 
-export function getPosts(customPath = ['', '', '', '']) {
-    const postsDir = path.join(process.cwd(), ...customPath);
+export function getPosts(customPath: string[] = ['', '', '', '']) {
+    // Filter out empty strings from path to prevent invalid path issues
+    const filteredPath = customPath.filter(segment => segment !== '');
+    const postsDir = path.join(process.cwd(), ...filteredPath);
     return getMDXData(postsDir);
 }

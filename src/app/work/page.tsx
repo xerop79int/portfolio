@@ -38,8 +38,8 @@ export default function Work() {
 
     return (
         <Flex
-			fillWidth maxWidth="m"
-			direction="column">
+            fillWidth
+            direction="column">
             <script
                 type="application/ld+json"
                 suppressHydrationWarning

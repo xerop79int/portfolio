@@ -1,152 +1,93 @@
-import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
-import React, { ReactNode } from 'react';
+// components/mdx.tsx
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { highlight } from 'sugar-high'
+import React from 'react'
+import Link from 'next/link'
+import { Heading, Text } from '@/once-ui/components'
+import './mdx.css'
 
-import { SmartImage, SmartLink, Text } from '@/once-ui/components';
-import { CodeBlock } from '@/once-ui/modules';
-import { HeadingLink } from '@/components';
-
-import { TextProps } from '@/once-ui/interfaces';
-import { SmartImageProps } from '@/once-ui/components/SmartImage';
-
-type TableProps = {
-    data: {
-        headers: string[];
-        rows: string[][];
-    };
-};
-
-function Table({ data }: TableProps) {
-    const headers = data.headers.map((header, index) => (
-        <th key={index}>{header}</th>
-    ));
-    const rows = data.rows.map((row, index) => (
-        <tr key={index}>
-        {row.map((cell, cellIndex) => (
-            <td key={cellIndex}>{cell}</td>
-        ))}
-        </tr>
-    ));
-
-    return (
-        <table>
-            <thead>
-                <tr>{headers}</tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </table>
-    );
+function Code({ children, ...props }) {
+  // This handles inline code
+  return <code {...props} className="font-mono text-sm bg-neutral-50 dark:bg-neutral-800 px-1 py-0.5 rounded">{children}</code>
 }
 
-type CustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    href: string;
-    children: ReactNode;
-};
-
-function CustomLink({ href, children, ...props }: CustomLinkProps) {
-    if (href.startsWith('/')) {
-        return (
-            <SmartLink href={href} {...props}>
-                {children}
-            </SmartLink>
-        );
-    }
-
-    if (href.startsWith('#')) {
-        return <a href={href} {...props}>{children}</a>;
-    }
-
-    return (
-        <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-            {children}
-        </a>
-    );
+function Pre({ children, ...props }) {
+  // This handles code blocks (which are wrapped in pre tags)
+  return (
+    <pre {...props} className="overflow-auto p-4 rounded-lg my-4 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">
+      {children}
+    </pre>
+  )
 }
 
-function createImage({ alt, src, ...props }: SmartImageProps & { src: string }) {
-    if (!src) {
-        console.error("SmartImage requires a valid 'src' property.");
-        return null;
-    }
-
-    return (
-        <SmartImage
-            className="my-20"
-            enlarge
-            radius="m"
-            aspectRatio="16 / 9"
-            alt={alt}
-            src={src}
-            {...props}/>
-        )
-}
-
-function slugify(str: string): string {
-    return str
-        .toString()
-        .toLowerCase()
-        .trim() // Remove whitespace from both ends of a string
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-        .replace(/\-\-+/g, '-') // Replace multiple - with single -
-}
-
-function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
-    const CustomHeading = ({ children, ...props }: TextProps) => {
-    const slug = slugify(children as string);
-        return (
-            <HeadingLink
-                style={{marginTop: 'var(--static-space-24)', marginBottom: 'var(--static-space-12)'}}
-                level={level}
-                id={slug}
-                {...props}>
-                {children}
-            </HeadingLink>
-        );
-    };
+function CodeBlock({ className, children }) {
+  // Extract language from className (format: language-xxx)
+  const language = className ? className.replace('language-', '') : ''
+  const highlightedCode = highlight(children) // Remove options as sugar-high auto-detects language
   
-    CustomHeading.displayName = `Heading${level}`;
-  
-    return CustomHeading;
+  return (
+    <div className="relative">
+      {language && (
+        <div className="absolute top-2 right-2 text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+          {language}
+        </div>
+      )}
+      <pre className="overflow-auto p-4 rounded-lg my-4 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">
+        <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+      </pre>
+    </div>
+  )
 }
-
-function createParagraph({ children }: TextProps) {
-    return (
-        <Text style={{lineHeight: '175%'}}
-            variant="body-default-m"
-            onBackground="neutral-medium"
-            marginTop="8"
-            marginBottom="12">
-            {children}
-        </Text>
-    );
-};
 
 const components = {
-    p: createParagraph as any,
-    h1: createHeading(1) as any,
-    h2: createHeading(2) as any,
-    h3: createHeading(3) as any,
-    h4: createHeading(4) as any,
-    h5: createHeading(5) as any,
-    h6: createHeading(6) as any,
-    img: createImage as any,
-    a: CustomLink as any,
-    Table,
-    CodeBlock
-};
+  h1: (props) => <Heading variant="display-strong-m" marginY="l" {...props} />,
+  h2: (props) => <Heading variant="display-strong-xs" marginY="m" {...props} />,
+  h3: (props) => <Heading variant="title-moderate-l" marginY="s" {...props} />,
+  h4: (props) => <Heading variant="title-moderate-m" marginY="s" {...props} />,
+  p: (props) => <Text variant="body-default-m" marginY="s" {...props} />,
+  a: ({ href = '', ...props }) => {
+    if (href.startsWith('/')) {
+      return <Link href={href} {...props} />
+    }
+    if (href.startsWith('#')) {
+      return <a href={href} {...props} />
+    }
+    return <a target="_blank" rel="noopener noreferrer" href={href} {...props} />
+  },
+  ul: (props) => <ul className="list-disc pl-6 my-4" {...props} />,
+  ol: (props) => <ol className="list-decimal pl-6 my-4" {...props} />,
+  li: (props) => <li className="mb-2" {...props} />,
+  code: ({ className, children, ...props }) => {
+    if (className) {
+      return <CodeBlock className={className}>{children}</CodeBlock>
+    }
+    return <Code {...props}>{children}</Code>
+  },
+  pre: Pre,
+  img: (props) => (
+    <img
+      {...props}
+      className="rounded-lg my-8 border border-neutral-200 dark:border-neutral-700"
+      alt={props.alt || 'Image'}
+    />
+  ),
+}
 
-type CustomMDXProps = MDXRemoteProps & {
-    components?: typeof components;
-};
-
-export function CustomMDX(props: CustomMDXProps) {
-    
-    return (
-        // @ts-ignore: Suppressing type error for MDXRemote usage
-        <MDXRemote
-            {...props}
-            components={{ ...components, ...(props.components || {}) }}
-        />
-    );
+export function CustomMDX({ source }: { source: string }) {
+  return (
+    <div className="mdx-content">
+      <MDXRemote 
+        source={source} 
+        components={components} 
+        options={{
+          parseFrontmatter: false,
+          mdxOptions: {
+            remarkPlugins: [],
+            rehypePlugins: [],
+            format: 'mdx'
+          }
+        }}
+      />
+    </div>
+  )
 }
