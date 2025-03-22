@@ -16,8 +16,57 @@ import matplotlib.pyplot as plt
 
 ```
 
-# Load the CSV data
+## Load the CSV data
 ```python
 
 df = pd.read_csv('train.csv')
 ```
+
+
+# Comparison of Markdown Libraries
+
+| Feature | Markdown-it | Marked | Rehype Pretty Code |
+|---------|------------|--------|-------------------|
+| **Bundle Size** | Medium | Smallest | Largest |
+| **Performance** | Very fast | Fastest | Good |
+| **Syntax Highlighting** | highlight.js | PrismJS | Shiki/Highlight.js |
+| **GFM Support** | Built-in | Built-in | Via remark-gfm |
+| **Code Blocks** | Clean, customizable | Simple, efficient | Beautiful, detailed |
+| **Extensions** | Many plugins | Some plugins | Unified ecosystem |
+| **Line Highlighting** | Via plugin | Custom renderer | Built-in |
+| **Word Highlighting** | Via plugin | Via custom code | Built-in |
+| **Code Line Numbers** | Via plugin | Via custom renderer | Built-in |
+| **Styling Approach** | Inline CSS | Inline CSS | Generated CSS |
+| **Learning Curve** | Medium | Easiest | Steepest |
+| **Customization** | High | High | Very high |
+
+## Visual Style Differences
+
+### Markdown-it with Highlight.js
+- Clean, modern appearance
+- Good support for code highlighting
+- GitHub-like styling out of the box
+- Simple language indicators
+- Easier to customize
+
+### Marked with PrismJS
+- Minimal and efficient
+- Very fast rendering
+- Prism-based syntax highlighting
+- Simple but effective code block styling
+- Lightweight option
+
+### Rehype Pretty Code
+- Most visually polished
+- Advanced code block features
+- Line and word highlighting
+- VSCode-like syntax highlighting
+- Framework for advanced customization
+
+## Recommendation
+
+- **If you want something lightweight and fast**: Choose Marked
+- **If you want a good balance of features and simplicity**: Choose Markdown-it
+- **If you want the most beautiful code blocks with advanced features**: Choose Rehype Pretty Code
+
+All solutions provide responsive design and dark mode support.

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { CustomMDX } from '@/components/mdx'
+import MarkdownRenderer from '@/components/mdx'
 import { getPosts } from '@/app/utils/utils'
 import { AvatarGroup, Button, Flex, Heading, SmartImage, Text } from '@/once-ui/components'
 import { baseURL } from '@/app/resources';
@@ -146,7 +146,10 @@ export default function Project({ params }: WorkParams) {
 						{formatDate(post.metadata.publishedAt)}
 					</Text>
 				</Flex>
-				<CustomMDX source={post.content} />
+				{/* <CustomMDX source={post.content} /> */}
+				<div className="container mx-auto px-4 py-8 max-w-4xl">
+					<MarkdownRenderer content={post.content} />
+				</div>
 			</Flex>
 			<ScrollToHash />
 		</Flex>

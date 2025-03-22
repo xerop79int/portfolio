@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { CustomMDX } from '@/components/mdx'
+import MarkdownRenderer from '@/components/mdx'
 import { getPosts } from '@/app/utils/utils'
 import { AvatarGroup, Button, Flex, Heading, SmartImage, Text } from '@/once-ui/components'
 import { baseURL } from '@/app/resources';
@@ -72,15 +72,7 @@ export default async function Blog({ params }: BlogParams) {
     }
 
     // Serialize the MDX content
-    const mdxSource = await serialize(post.content, {
-        // Add custom MDX plugins if needed
-        mdxOptions: {
-            remarkPlugins: [],
-            rehypePlugins: [],
-        },
-        // Pass variables to be accessed in MDX content if needed
-        scope: {},
-    });
+    const mdxSource = await serialize(post.content);
 
     const avatars = post.metadata.team?.map((person) => ({
         src: person.avatar,
@@ -144,8 +136,8 @@ export default async function Blog({ params }: BlogParams) {
                     {formatDate(post.metadata.publishedAt)}
                     </Text>
                 </Flex>
-                <div className="mdx-wrapper">
-                    <CustomMDX source={post.content} />
+                <div className="container mx-auto px-4 py-8 max-w-4xl">
+                    <MarkdownRenderer content={post.content} />
                 </div>
             </Flex>
             <ScrollToHash />
