@@ -109,12 +109,9 @@ export default function Home() {
 					</RevealFx>
 				</Column>
 			</Column>
-			{/* <RevealFx translateY="16" delay={0.6}>
-				<Projects range={[1,1]}/>
-			</RevealFx> */}
 			{routes['/blog'] && (
 				<Flex
-					// fillWidth gap="24"
+					fillWidth gap="24"
 					mobileDirection="column"
 					justifyContent="center"
 					direction="column"
@@ -130,11 +127,11 @@ export default function Home() {
 					</Flex>
 					<Flex
 						flex={3} paddingX="20" marginTop='l'>
-						<Posts range={[1,2]} columns="2"/>
+						<Posts range={[1,2]} columns="2" thumbnail/>
 					</Flex>
 				</Flex>
 			)}
-			{/* <Projects range={[2]}/> */}
+			<Projects range={[2]}/>
 		</Column>
 	);
 }
