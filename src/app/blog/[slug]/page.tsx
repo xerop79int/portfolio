@@ -79,68 +79,74 @@ export default async function Blog({ params }: BlogParams) {
     })) || [];
 
     return (
-        <Flex as="section"
-            fillWidth maxWidth="l"
-            direction="column"
-            gap="l">
-            <script
-                type="application/ld+json"
-                suppressHydrationWarning
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        '@context': 'https://schema.org',
-                        '@type': 'BlogPosting',
-                        headline: post.metadata.title,
-                        datePublished: post.metadata.publishedAt,
-                        dateModified: post.metadata.publishedAt,
-                        description: post.metadata.summary,
-                        image: post.metadata.image
-                            ? `https://${baseURL}${post.metadata.image}`
-                            : `https://${baseURL}/og?title=${post.metadata.title}`,
-                        url: `https://${baseURL}/blog/${post.slug}`,
-                        author: {
-                            '@type': 'Person',
-                            name: person.name,
-                        },
-                    }),
+        <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.10)', minHeight: '100vh', padding: '32px 16px', borderRadius: '12px' }}>
+            <Flex as="section"
+                fillWidth maxWidth="xl"
+                direction="column"
+                style={{
+                    padding: '32px', 
+                    borderRadius: '12px',
                 }}
-            />
-            <Button
-                href="/blog"
-                weight="default"
-                variant="tertiary"
-                size="s"
-                prefixIcon="chevronLeft">
-                Posts
-            </Button>
-            <Heading
-                variant="display-strong-s">
-                {post.metadata.title}
-            </Heading>
-            <Flex style={{margin: 'auto'}}
-                as="article"
-                maxWidth="l" fillWidth
-                direction="column">
-                <Flex
-                    gap="12" marginBottom="24"
-                    alignItems="center">
-                    { post.metadata.team && (
-                    <AvatarGroup
-                        reverse
-                        avatars={avatars}
-                        size="m"/>
-                    )}
-                    <Text
-                    variant="body-default-s"
-                    onBackground="neutral-weak">
-                    {formatDate(post.metadata.publishedAt)}
-                    </Text>
+                gap="l">
+                <script
+                    type="application/ld+json"
+                    suppressHydrationWarning
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'BlogPosting',
+                            headline: post.metadata.title,
+                            datePublished: post.metadata.publishedAt,
+                            dateModified: post.metadata.publishedAt,
+                            description: post.metadata.summary,
+                            image: post.metadata.image
+                                ? `https://${baseURL}${post.metadata.image}`
+                                : `https://${baseURL}/og?title=${post.metadata.title}`,
+                            url: `https://${baseURL}/blog/${post.slug}`,
+                            author: {
+                                '@type': 'Person',
+                                name: person.name,
+                            },
+                        }),
+                    }}
+                />
+                <Button
+                    href="/blog"
+                    weight="default"
+                    variant="tertiary"
+                    size="s"
+                    prefixIcon="chevronLeft">
+                    Posts
+                </Button>
+                <Heading
+                    variant="display-strong-s">
+                    {post.metadata.title}
+                </Heading>
+                <Flex style={{margin: 'auto'}}
+                    as="article"
+                    maxWidth="xl" fillWidth
+                    direction="column">
+                    <Flex
+                        gap="12" marginBottom="24"
+                        alignItems="center">
+                        { post.metadata.team && (
+                        <AvatarGroup
+                            reverse
+                            avatars={avatars}
+                            size="m"/>
+                        )}
+                        <Text
+                        variant="body-default-s"
+                        onBackground="neutral-weak">
+                        {formatDate(post.metadata.publishedAt)}
+                        </Text>
+                    </Flex>
+                    <div className="container mx-auto py-4 max-w-4xl">
+                        <MarkdownRenderer content={post.content} />
+                    </div>
                 </Flex>
-                <div className="container mx-auto px-4 py-8 max-w-4xl">
-                    <MarkdownRenderer content={post.content} />
-                </div>
+                <ScrollToHash />
             </Flex>
-            <ScrollToHash />
-        </Flex>
+        </div>
     )
 }
