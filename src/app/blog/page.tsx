@@ -38,8 +38,6 @@ export async function generateMetadata() {
 // This is a common issue when switching from MDX to MD
 
 export default function Blog() {
-  // Check if posts are being loaded correctly
-  console.log('Posts loaded:', getPosts(['src', 'app', 'blog', 'posts']));
   
   return (
     <Column >

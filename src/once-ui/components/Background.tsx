@@ -139,17 +139,22 @@ const Background = forwardRef<HTMLDivElement, BackgroundProps>(
     }, [cursorPosition, mask]);
 
     const maskStyle = (): CSSProperties => {
+      if (!mask) return {};
 
-      // if the page is /blog/[slug] then the background will be a light gray color
-      if (window.location.pathname.includes('/blog/')) {
-        return {
-          "--mask-position-x": "50%",
-          "--mask-position-y": "50%",
-          "--mask-radius": "0vh",
-        } as CSSProperties;
+      try{
+        // if the page is /blog/[slug] then the background will be a light gray color
+        if (window.location.pathname.includes('/blog/')) {
+          return {
+            "--mask-position-x": "50%",
+            "--mask-position-y": "50%",
+            "--mask-radius": "0vh",
+          } as CSSProperties;
+        }
+      } catch (e) {
+        console.log(e);
       }
 
-      if (!mask) return {};
+      
 
       if (mask.cursor) {
         return {
