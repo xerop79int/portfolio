@@ -145,9 +145,9 @@ const Background = forwardRef<HTMLDivElement, BackgroundProps>(
         // if the page is /blog/[slug] then the background will be a light gray color
         if (window.location.pathname.includes('/blog/')) {
           return {
-            "--mask-position-x": "50%",
+            "--mask-position-x": "100%",
             "--mask-position-y": "50%",
-            "--mask-radius": "0vh",
+            "--mask-radius": "50vh",
           } as CSSProperties;
         }
       } catch (e) {
