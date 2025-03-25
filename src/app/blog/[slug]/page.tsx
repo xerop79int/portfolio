@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import MarkdownRenderer from '@/components/mdx'
 import { getPosts } from '@/app/utils/utils'
-import { AvatarGroup, Button, Flex, Heading, SmartImage, Text } from '@/once-ui/components'
+import { AvatarGroup, Button, Flex, Heading, Text, Tag } from '@/once-ui/components'
 import { baseURL } from '@/app/resources';
 import { person } from '@/app/resources/content';
 import { formatDate } from '@/app/utils/formatDate';
@@ -122,28 +122,36 @@ export default async function Blog({ params }: BlogParams) {
                     variant="display-strong-s">
                     {post.metadata.title}
                 </Heading>
+                <Text
+                    variant="body-default-s"
+                    onBackground="neutral-weak">
+                    Summary: {post.metadata.summary}
+                </Text>
+                {post.metadata.tags && Array.isArray(post.metadata.tags) && (
+                    <Flex gap="8" wrap={true}>
+                        {post.metadata.tags.map((tag: string) => (
+                            <Tag
+                                key={tag}
+                                variant="brand"
+                                size="s"
+                                label={tag} />
+                        ))}
+                    </Flex>
+                )}
                 <Flex style={{margin: 'auto'}}
                     as="article"
                     maxWidth="xl" fillWidth
                     direction="column">
                     <Flex
-                        gap="12" marginBottom="24"
+                        gap="12"
                         alignItems="center">
-                        { post.metadata.team && (
-                        <AvatarGroup
-                            reverse
-                            avatars={avatars}
-                            size="m"/>
-                        )}
                         <Text
                         variant="body-default-s"
                         onBackground="neutral-weak">
                         {formatDate(post.metadata.publishedAt)}
                         </Text>
                     </Flex>
-                    <div className="container mx-auto py-4 max-w-4xl">
-                        <MarkdownRenderer content={post.content} />
-                    </div>
+                    <MarkdownRenderer content={post.content} />
                 </Flex>
                 <ScrollToHash />
             </Flex>

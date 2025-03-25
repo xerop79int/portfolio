@@ -15,7 +15,7 @@ type Metadata = {
     summary: string;
     image?: string;
     images: string[];
-    tag?: string | string[];  // Fix: Allow tag to be a string or array
+    tags?: string | string[];  // Fix: Allow tag to be a string or array
     team: Team[];
     link?: string;
 };
@@ -56,7 +56,7 @@ function readMDXFile(filePath: string) {
         summary: data.summary || '',
         image: data.image || undefined,
         images: Array.isArray(data.images) ? data.images : [],
-        tag: data.tag || undefined,
+        tags: Array.isArray(data.tags) ? data.tags : [],
         team: Array.isArray(data.team) ? data.team : [],
         link: data.link || undefined,
     };
@@ -71,6 +71,8 @@ function getMDXData(dir: string) {
             try {
                 const { metadata, content } = readMDXFile(path.join(dir, file));
                 const slug = path.basename(file, path.extname(file));
+
+                console.log(metadata)
 
                 return {
                     metadata,

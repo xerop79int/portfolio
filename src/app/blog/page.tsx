@@ -69,9 +69,8 @@ export default function Blog() {
         {blog.title}
       </Heading>
       <Column
-        fillWidth flex={1}>
-        <Posts range={[1,3]} thumbnail/>
-        <Posts range={[4]} columns="2"/>
+        width={70} flex={1}>
+        <Posts thumbnail/>
       </Column>
     </Column>
   );

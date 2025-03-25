@@ -54,17 +54,28 @@ export default function Post({ post, thumbnail }: PostProps) {
                         wrap="balance">
                         {post.metadata.title}
                     </Heading>
+                    {/* display tags */}
+                    <Text
+                        variant="body-default-s"
+                        onBackground="neutral-weak">
+                        {post.metadata.summary}
+                    </Text>
                     <Text
                         variant="label-default-s"
                         onBackground="neutral-weak">
                         {formatDate(post.metadata.publishedAt, false)}
                     </Text>
-                    { post.metadata.tag &&
-                        <Tag
-                            className="mt-8"
-                            label={post.metadata.tag}
-                            variant="neutral" />
-                    }
+                    {post.metadata.tags && (
+                        <Flex marginTop='4' gap="8" wrap={true}>
+                            {post.metadata.tags.map((tag: string) => (
+                                <Tag
+                                    key={tag}
+                                    variant="brand"
+                                    size="s"
+                                    label={tag} />
+                            ))}
+                        </Flex>
+                    )}
                 </Flex>
             </Flex>
         </SmartLink>

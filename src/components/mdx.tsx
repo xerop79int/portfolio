@@ -13,6 +13,7 @@ const SimpleMarkdownRenderer = ({ content }) => {
     return new MarkdownIt({
       html: true,
       linkify: true,
+      tag: true,
       typographer: true,
       highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
