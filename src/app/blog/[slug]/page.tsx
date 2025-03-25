@@ -79,7 +79,7 @@ export default async function Blog({ params }: BlogParams) {
     })) || [];
 
     return (
-        <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.10)', minHeight: '100vh', padding: '32px 16px', borderRadius: '12px' }}>
+        <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.12)', minHeight: '100vh', padding: '32px 16px', borderRadius: '12px' }}>
             <Flex as="section"
                 fillWidth maxWidth="xl"
                 direction="column"
