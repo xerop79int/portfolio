@@ -17,6 +17,8 @@ export default function Post({ post, thumbnail }: PostProps) {
                 textDecoration: 'none',
                 margin: '0',
                 height: 'fit-content',
+                backgroundColor: 'rgba(255, 255, 255, 0.10)',
+                width: '100%',
             }}
             key={post.slug}
             href={`/blog/${post.slug}`}>
