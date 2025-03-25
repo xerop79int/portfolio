@@ -6,6 +6,7 @@ import { Flex } from "./Flex";
 import { DisplayProps } from "../interfaces";
 import styles from "./Background.module.scss";
 import classNames from "classnames";
+import { usePathname } from 'next/navigation';
 
 function setRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
   if (typeof ref === "function") {
@@ -89,6 +90,7 @@ const Background = forwardRef<HTMLDivElement, BackgroundProps>(
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
     const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 });
     const backgroundRef = useRef<HTMLDivElement>(null);
+    const pathname = usePathname();
 
     useEffect(() => {
       setRef(forwardedRef, backgroundRef.current);
@@ -143,11 +145,11 @@ const Background = forwardRef<HTMLDivElement, BackgroundProps>(
 
       try{
         // if the page is /blog/[slug] then the background will be a light gray color
-        if (window.location.pathname.includes('/blog/')) {
+        if (pathname?.includes('/blog/')) {
           return {
-            "--mask-position-x": "100%",
-            "--mask-position-y": "50%",
-            "--mask-radius": "50vh",
+            "--mask-position-x": `${mask.x}%`,
+            "--mask-position-y": `${mask.y}%`,
+            "--mask-radius": `${mask.radius || 50}vh`,
           } as CSSProperties;
         }
       } catch (e) {
